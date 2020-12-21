@@ -1,0 +1,40 @@
+﻿@page "/databinding"
+@inherits DataBindingBase
+
+<h3>Data Binding</h3>
+
+<h3>One Way Data Binding</h3>
+<b>Name :</b> @Name
+
+<b>Member Type:</b> @(MemberType == "Gold" ? $"5% Cash back - {Name}" : $"2% Cash back - {Name}")
+
+<b>Name :</b>
+<input value="@Name" />
+
+<h3>Two Way Data Binding</h3>
+using onchange -
+<input value="@Name" @onchange="@(e => { Name = e.Value.ToString(); })" />
+<br />
+Simple 2 way replace onchange -
+<input @bind="@Name" />
+<br />
+Instant change  -
+<input @bind="Name" @bind:event="oninput" />
+<br />
+
+
+<h3>Bind Attribute</h3>
+
+<b>Color :</b>
+<input @bind="Color" />
+
+<div @bind-style="Color" @bind-style:event="onchange">
+    <h3>The background colour of this text changes</h3>
+</div>
+
+<div>
+    <textarea @bind="Message" @bind:event="oninput" />
+</div>
+<div>
+    Count : @Message.Length
+</div>

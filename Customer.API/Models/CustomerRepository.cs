@@ -23,6 +23,8 @@ namespace Customer.API.Models
         public async Task<Customer.Models.Customer> GetCustomer(int customerID)
         {
             return await appDbContext.Customers
+                .Include(s => s.Store)
+                //.ThenInclude(d => d.Department)
                 .FirstOrDefaultAsync(e => e.CustomerID == customerID);
         }
 

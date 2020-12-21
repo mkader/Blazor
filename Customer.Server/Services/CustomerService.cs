@@ -20,5 +20,10 @@ namespace Customer.Server.Services
         {
             return await httpClient.GetJsonAsync<Customer.Models.Customer[]>("api/customers");
         }
+
+        public async Task<Customer.Models.Customer> GetCustomers(int id)
+        {
+            return await httpClient.GetJsonAsync<Customer.Models.Customer>($"api/customers/{id}");
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Customer.Server.Services
     public interface ICustomerService
     {
         Task<IEnumerable<Customer.Models.Customer>> GetCustomers();
+        Task<Customer.Models.Customer> GetCustomers(int id);
     }
 }
