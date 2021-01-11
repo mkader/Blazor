@@ -1,0 +1,100 @@
+﻿@page "/customeredit/{id}"
+@using CustomerCRUD.Library
+@using CustomerCRUD.Models
+<!-- or declare _impors.razor-->
+@inherits CustomerEditBase
+
+    <EditForm Model="@CustomerEditModel">
+        <DataAnnotationsValidator />
+        <h3>Edit Customer</h3>
+        <hr />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="firstName" class="col-sm-2 col-form-label">
+                First Name
+            </label>
+            <div class="col-sm-10">
+                <InputText id="firstName" class="form-control" placeholder="First Name"
+                           @bind-Value="CustomerEditModel.FirstName" />
+                <ValidationMessage For="@(() => CustomerEditModel.FirstName)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lastName" class="col-sm-2 col-form-label">
+                Last Name
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lastName" class="form-control" placeholder="Last Name"
+                           @bind-Value="CustomerEditModel.LastName" />
+                <ValidationMessage For="@(() => CustomerEditModel.LastName)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Email
+            </label>
+            <div class="col-sm-10">
+                <InputText id="email" class="form-control" placeholder="Email"
+                           @bind-Value="CustomerEditModel.Email" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Confirm Email
+            </label>
+            <div class="col-sm-10">
+                <InputText id="email" class="form-control" placeholder="Email"
+                           @bind-Value="CustomerEditModel.ConfirmEmail" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="department" class="col-sm-2 col-form-label">
+                Department
+            </label>
+            <div class="col-sm-10">
+                <!--
+                <InputSelect id="department" @bind-Value="Customer.Store.StoreName" class="form-control">
+                Binding the select element to an integer is not supported and throws the following exception.
+                Microsoft.AspNetCore.Components.Forms.InputSelect`1[System.Int32] does not support the type 'System.Int32'
+            -->
+                <!--<InputSelect id="department" @bind-Value="StoreID" class="form-control">
+                @foreach (var store in Stores)
+                {
+                    <option value="@store.StoreID">@store.StoreName</option>
+                }
+            </InputSelect>
+            -->
+                <!-- <CustomInputSelect @bind-Value="StoreID" class="form-control"> will work-->
+                <CustomInputSelect @bind-Value="CustomerEditModel.StoreID" class="form-control">
+                    @foreach (var store in Stores)
+                    {
+                        <option value="@store.StoreID">@store.StoreName</option>
+                    }
+                </CustomInputSelect>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="department" class="col-sm-2 col-form-label">
+                Member Type
+            </label>
+            <div class="col-sm-10">
+                <InputSelect id="membertype" @bind-Value="CustomerEditModel.MemberType" class="form-control">
+                    @foreach (var membertype in Enum.GetValues(typeof(MemberType)))
+                    {
+                        <option value="@membertype">@membertype</option>
+                    }
+                </InputSelect>
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="department" class="col-sm-2 col-form-label">
+                Date Of Join
+            </label>
+            <div class="col-sm-10">
+                <InputDate @bind-Value="CustomerEditModel.DateOfJoin" class="form-control"></InputDate>
+            </div>
+        </div>
+    </EditForm>

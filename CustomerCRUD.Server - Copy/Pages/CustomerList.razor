@@ -1,0 +1,48 @@
+﻿<!--
+The single forward slash in the page directive specifies to render this component when we navigate to the root application URL.
+-->
+@page "/"
+<!--
+ inherits attribute specifies the base class for this component.
+ -->
+@inherits CustomerListBase
+
+
+<h3>Customer List - Selected Count @SelectedCustomersCount</h3>
+
+<input type="checkbox" id="showFooter" @bind="ShowFooter" />
+<label for="showFooter">Show Footer</label>
+
+<div class="card-deck">
+    <!--//To avoid null exception-->
+    @if (Customers == null)
+    {
+        <div class="spinner"></div>
+    }
+    else
+    {
+        //This means Custoemrs property could be null and can result in NullReference exceptions.
+        @foreach (var customer in Customers)
+        {
+            <CustomerListDisplay Customer="customer" ShowFooter="ShowFooter"
+                                 OnCustomerSelection="CustomerSelectionChanged"></CustomerListDisplay>
+            <!-- moved to cusotmer list diaply child componet page -->
+            <!--
+            <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+                <div class="card-header">
+                    <h3>@customer.FirstName @customer.LastName</h3>
+                </div>
+                <img class="card-img-top imageThumbnail" src="@customer.Image" />
+                <div class="card-footer text-center">
+                    <a href="@($"customerdetails/{customer.CustomerID}")"
+                       class="btn btn-primary m-1">View</a>
+
+                    <a href="#" class="btn btn-primary m-1">Edit</a>
+
+                    <a href="#" class="btn btn-danger m-1">Delete</a>
+                </div>
+            </div>
+            -->
+        }
+    }
+</div>
